@@ -54,8 +54,9 @@ def activate_venv(venv_path):
 def install_requirements(script_path, venv_path):
     requirements_path = os.path.join(
         os.path.dirname(script_path), 'requirements.txt')
-    pip_path = os.path.join(venv_path, 'bin', 'pip')
-    subprocess.call([pip_path, 'install', '-r', requirements_path])
+    if os.path.exists(requirements_path):
+        pip_path = os.path.join(venv_path, 'bin', 'pip')
+        subprocess.call([pip_path, 'install', '-r', requirements_path])
 
 
 def setup_venv(script_path):
