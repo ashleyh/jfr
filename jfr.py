@@ -66,13 +66,19 @@ def setup_venv(script_path):
     activate_venv(venv_path)
 
 
+def run_script(args):
+    sys.argv = [args.path] + args.args
+    runpy.run_path(args.path, run_name='__main__')
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('path')
+    parser.add_argument('args', nargs='*')
     args = parser.parse_args()
     check_is_script(args.path)
     setup_venv(args.path)
-    runpy.run_path(args.path)
+    run_script(args)
 
 
 if __name__ == '__main__':
